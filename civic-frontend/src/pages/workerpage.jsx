@@ -210,7 +210,8 @@ export default function WorkerTaskPage() {
             <p className="text-gray-700">{task.location.address}</p>
             <a
               className="inline-block mt-2 text-sm text-blue-600"
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(task.location.lat + ',' + task.location.lon)}`}
+              href={ `https://maps.mappls.com/${task.location.lat},${task.location.lon}`}
+
               target="_blank"
               rel="noreferrer"
             >
