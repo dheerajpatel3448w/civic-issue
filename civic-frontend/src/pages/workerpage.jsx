@@ -89,10 +89,10 @@ export default function WorkerTaskPage() {
 
     function initMap() {
       try {
-        const { lat, lng } = task.location;
+        const { lat, lon } = task.location;
         // eslint-disable-next-line no-undef
         const map = new MapmyIndia.Map('map-canvas', {
-          center: [lat, lng],
+          center: [lat, lon],
           zoomControl: true,
           marquee: false,
           zoom: 15
@@ -100,7 +100,7 @@ export default function WorkerTaskPage() {
 
         // add marker
         // eslint-disable-next-line no-undef
-        const marker = new L.marker([lat, lng]).addTo(map);
+        const marker = new L.marker([lat, lon]).addTo(map);
         marker.bindPopup(task.location.address || 'Task location').openPopup();
 
         mapRef.current = map;
@@ -210,7 +210,7 @@ export default function WorkerTaskPage() {
             <p className="text-gray-700">{task.location.address}</p>
             <a
               className="inline-block mt-2 text-sm text-blue-600"
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(task.location.lat + ',' + task.location.lng)}`}
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(task.location.lat + ',' + task.location.lon)}`}
               target="_blank"
               rel="noreferrer"
             >

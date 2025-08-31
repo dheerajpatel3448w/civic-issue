@@ -4,7 +4,7 @@ import fs from 'fs';
 import multer from 'multer';
 import Complaint from '../models/complaint.model.js';
 import verifyTaskToken from '../middlewares/verifytasktoken.js';
-
+import workerModel from '../models/worker.model.js';
 
 
 
@@ -76,9 +76,11 @@ export const postUploadProof = [
 
       // If verification success -> mark complaint Resolved
       if (compareResult) {
-        await Complaint.findByIdAndUpdate(task._id, { status: 'Resolved', resolvedAt: new Date() });
-        // Optionally notify officer/user (implement notifications service)
-        // await notifyOfficerAndUser(task);
+      const com=  await Complaint.findByIdAndUpdate(task._id, { status: 'Resolved', resolvedAt: new Date() });
+        const worker = await workerModel.findOneAndUpdate({_id:com.assignedWorker},{
+          status:"available"
+        },{new:true});
+        console.log(worker);
       }
 
       return res.json({ message: 'Proof uploaded', compareResult });
