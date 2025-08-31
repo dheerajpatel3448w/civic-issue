@@ -1,6 +1,6 @@
 // middleware/verifyTaskToken.js
 import jwt from 'jsonwebtoken';
-import Complaint from '../models/Complaint.js';
+import Complaint from '../models/complaint.model.js';
 
 export default async function verifyTaskToken(req, res, next) {
   try {

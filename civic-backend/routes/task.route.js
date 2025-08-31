@@ -1,6 +1,6 @@
 // routes/tasks.js
 import express from 'express';
-import { getTaskDetails, postUploadProof, assignAndNotify } from '../controllers/task.controller.js';
+import { getTaskDetails, postUploadProof } from '../controllers/task.controller.js';
 const router7 = express.Router();
 
 // Public route (protected by token query param inside middleware)
