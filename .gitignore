@@ -46,8 +46,6 @@ coverage/
 *.lcov
 
 # Temporary files
-*.tmp
-*.temp
 
 # Mac system files
 *.DS_Store
