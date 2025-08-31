@@ -82,7 +82,7 @@ export const assignedWorker = async(req,res) => {
         const message = `🚨 New Work Assigned!\n\n📍 Location: ${complaint.location?.address || 'Not provided'}\n📷 Issue: ${complaint.description || 'No description'}\n\n🔗 Open task and upload proof: ${link}\n\nPlease complete and upload proof.`;
 
 await sendWhatsAppMessage(worker.phone,message);
-await senttomail(worker.name,"nikhilyadav73642@gmail.com",message);
+await senttomail(worker.name,worker.email,message);
  const complaint2 = await Complaint.findByIdAndUpdate(complaint._id,{assignedWorker:worker._id,status:"Assigned"},{
     new:true
  })

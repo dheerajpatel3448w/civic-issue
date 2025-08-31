@@ -53,7 +53,7 @@ export default function WorkerTaskPage() {
     }
 
     // fetch task details
-    fetch(`${import.meta.env.VITE_API_URL}/api/tasks/${taskId}?token=${encodeURIComponent(token)}`)
+    fetch(`${import.meta.env.VITE_API_URL}/task/${taskId}?token=${encodeURIComponent(token)}`)
       .then(async (r) => {
         if (!r.ok) throw new Error(await r.text());
         return r.json();
@@ -165,7 +165,7 @@ export default function WorkerTaskPage() {
     setUploadResult(null);
 
     try {
-      const res = await fetch(`/api/tasks/${taskId}/upload?token=${encodeURIComponent(token)}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/task/${taskId}/upload?token=${encodeURIComponent(token)}`, {
         method: 'POST',
         body: fd
       });
