@@ -14,7 +14,7 @@ import {
 import { useContext } from 'react';
 import { UserContext } from '../context/user.context';
 import { OfficerContext } from '../context/officer.context';
-import Complaint from '../../../civic-backend/models/complaint.model';
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
