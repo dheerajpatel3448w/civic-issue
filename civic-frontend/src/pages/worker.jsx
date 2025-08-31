@@ -137,7 +137,7 @@ export default function WorkerForm() {
         form, {
           withCredentials: true,
           headers: {
-            Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem('token2'))}`,
             "Content-Type": "multipart/form-data",
           },
         }
