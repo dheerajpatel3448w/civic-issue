@@ -8,6 +8,7 @@ export const  intializeSocket = (server) => {
     cors: {
         origin: [`http://localhost:5173`,`${process.env.frontend}`],
         methods: ["GET", "POST"],
+        credentials:true
 
     }
   })
