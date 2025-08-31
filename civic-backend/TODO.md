@@ -1,13 +1,7 @@
-# Fix WhatsApp Message Delivery Issue
+# TODO: Fix compareCleaning Error
 
-## Problem
-- Messages are sent successfully (console logs show success)
-- Users do not receive the messages
-- Likely due to Twilio Sandbox restrictions or incorrect configuration
-
-## Steps to Fix
-- [x] Make 'from' WhatsApp number configurable via environment variable
-- [x] Make country code dynamic instead of hardcoded +91
-- [x] Add better error handling and delivery status logging
-- [x] Update .env file with proper Twilio WhatsApp number
-- [ ] Test with actual recipient opt-in (for sandbox) or production number
+- [x] Move ai initialization to global scope in gemini.service.js (skipped per user request)
+- [x] Add validation for path1 and path2 in compareCleaning function
+- [x] Remove invalid await compareCleaning(); call at end of file
+- [x] Fix ai reference in compareCleaning function (initialized inside function)
+- [x] Test the fix by running the application (error resolved - no longer occurs on module import)

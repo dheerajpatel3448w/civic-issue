@@ -100,3 +100,15 @@ await senttomail(worker.name,worker.email,message);
     message:"assing work successfully"
   })
 }
+export const usercomplaint = async(req,res) => {
+    const id = req.query.id;
+    console.log(id);
+    const complaint = await Complaint.find({user:id});
+    console.log(complaint);
+    if(!complaint){
+        return res.status(400).json({message:"error"})
+    }
+    res.status(200).json({complaint,message:"complaint"});
+  
+
+}

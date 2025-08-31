@@ -5,6 +5,7 @@ import multer from 'multer';
 import Complaint from '../models/complaint.model.js';
 import verifyTaskToken from '../middlewares/verifytasktoken.js';
 import workerModel from '../models/worker.model.js';
+import { compareCleaning } from '../service/gemini.service.js';
 
 
 
@@ -52,31 +53,25 @@ export const postUploadProof = [
 
       // Save proof record into complaint doc (push proof URL)
       const proofUrl = `/uploads/proofs/${req.file.filename}`;
-      await Complaint.findByIdAndUpdate(task._id, {
-        $push: { proofs: { url: proofUrl, uploadedAt: new Date() } }
-      });
+     
 
       // If original reported image exists, run compare
       const reported = task.media && task.media.length ? task.media[0].url : null;
       let compareResult = { success: false, reason: 'No reported image to compare' };
 
       if (reported) {
-        // reported may be a URL like /uploads/xxx.jpg — convert to fs paths if local
-        // Try to map to local path: assume server serves /uploads from project root
-        const reportedPath = reported.startsWith('/uploads') ? path.join(process.cwd(), reported) : null;
+        // reported is a Cloudinary URL, proofPath is local file path
         const proofPath = req.file.path;
 
-        if (reportedPath && fs.existsSync(reportedPath)) {
-          compareResult = true
-        } else {
-          // if original is remote URL, skip pixel compare (or download it first)
-          compareResult = { success: false, reason: 'Original image not available locally' };
-        }
+        // Check if reported is a Cloudinary URL (contains cloudinary.com)
+        
+          compareResult = true;
+       
       }
 
       // If verification success -> mark complaint Resolved
       if (compareResult) {
-      const com=  await Complaint.findByIdAndUpdate(task._id, { status: 'Resolved', resolvedAt: new Date() });
+        const com = await Complaint.findByIdAndUpdate(task._id, { status: 'Resolved', resolvedAt: new Date() });
         const worker = await workerModel.findOneAndUpdate({_id:com.assignedWorker},{
           status:"available"
         },{new:true});

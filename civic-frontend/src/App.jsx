@@ -16,6 +16,7 @@ import Userprotectroute from './components/userprotectroute'
 import WorkerTaskPage from './pages/workerpage'
 import { Applayout } from './pages/Applayout'
 import HomePage from './pages/Home'
+import { UserComplaintpage } from './pages/usercomplaint'
 function App() {
  const router = createBrowserRouter([
   {
@@ -45,6 +46,9 @@ function App() {
   {
     path:'/complaintpage',
     element:<Officerprotectroute><Complaintpage/></Officerprotectroute>
+  },{
+    path:'/usercomplaint',
+    element:<Userprotectroute><UserComplaintpage/></Userprotectroute>
   }
     ]
   }

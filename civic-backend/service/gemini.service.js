@@ -3,8 +3,10 @@ import {
   createUserContent,
   createPartFromUri,
 } from "@google/genai";
+import * as fs from "node:fs";
 
-import fs from "fs";
+
+
 
 export async function main(path) {
   // 👇 Yaha apni API key dalni hai
@@ -186,4 +188,50 @@ The JSON format should be:
   return f
 }
 
+
+
+// Initialize Gemini AI
+
+
+export async function compareCleaning(path1,path2) {
+  try {
+    // Validate input paths
+    if (!path1 || !path2) {
+      throw new Error('Both path1 and path2 are required');
+    }
+
+    // Initialize Gemini AI
+    const ai = new GoogleGenAI({
+      apiKey: "AIzaSyAQiLeVVh6lnduqpOrOuZIpP2xCXfP9xh0",
+    });
+
+    // BEFORE IMAGE (from Cloudinary)
+    const beforeImageUrl = path1;
+
+    // AFTER IMAGE (uploaded by worker - stored locally)
+    const afterImagePath = path2; // Adjust path as per your setup
+    const base64AfterImage = fs.readFileSync(afterImagePath, { encoding: "base64" });
+
+    // Create request to Gemini
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash", // Best for vision comparison
+      contents: createUserContent([
+        "Compare these two images. The first one is BEFORE cleaning, the second is AFTER cleaning. Tell if cleaning was done effectively.",
+        // First image (from Cloudinary)
+        createPartFromUri(beforeImageUrl, "image/jpeg"),
+        // Second image (local worker upload)
+        {
+          inlineData: {
+            mimeType: "image/jpeg",
+            data: base64AfterImage,
+          },
+        },
+      ]),
+    });
+
+    console.log("AI Analysis:\n", response);
+  } catch (error) {
+    console.error("Error comparing images:", error);
+  }
+}
 
