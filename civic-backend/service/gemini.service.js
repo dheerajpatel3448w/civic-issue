@@ -9,13 +9,24 @@ import * as fs from "node:fs";
 
 
 
+function getMimeTypeFromUrl(url) {
+  if (url.endsWith(".png")) return "image/png";
+  if (url.endsWith(".jpg") || url.endsWith(".jpeg")) return "image/jpeg";
+  if (url.endsWith(".webp")) return "image/webp";
+  if (url.endsWith(".heic")) return "image/heic";
+  if (url.endsWith(".heif")) return "image/heif";
+  // Default fallback
+  return "image/jpeg";
+}
+
 export async function main(imageUrl) {
-console.log(imageUrl);
+  console.log(imageUrl);
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY, // ✅ env variable zaroori hai
   });
 
-  
+  // Detect MIME type from URL
+  const mimeType = getMimeTypeFromUrl(imageUrl);
 
   // Fetch image and convert to base64
   const response = await fetch(imageUrl);
@@ -29,7 +40,7 @@ console.log(base64ImageData)
     contents: [
       {
         inlineData: {
-          mimeType: "image/webp", // ya "image/png" based on image type
+          mimeType: mimeType,
           data: base64ImageData,
         },
       },
