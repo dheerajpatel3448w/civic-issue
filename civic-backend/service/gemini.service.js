@@ -8,23 +8,32 @@ import * as fs from "node:fs";
 
 
 
-export async function main(path) {
-  // 👇 Yaha apni API key dalni hai
+
+export async function main(imageUrl) {
+console.log(imageUrl);
   const ai = new GoogleGenAI({
-    apiKey: "AIzaSyAQiLeVVh6lnduqpOrOuZIpP2xCXfP9xh0",
+    apiKey: process.env.GEMINI_API_KEY, // ✅ env variable zaroori hai
   });
 
-  // Upload local image file
-  const myfile = await ai.files.upload({
-    file: path, // 👈 apna image ka path
-    config: { mimeType: `image/jpeg` },
-  });
+  
 
-  // Ask Gemini to analyze the image
-  const response = await ai.models.generateContent({
+  // Fetch image and convert to base64
+  const response = await fetch(imageUrl);
+  
+  const imageArrayBuffer = await response.arrayBuffer();
+  const base64ImageData = Buffer.from(imageArrayBuffer).toString("base64");
+console.log(base64ImageData)
+  // Send request to Gemini
+  const result = await ai.models.generateContent({
     model: "gemini-2.5-flash",
-    contents: createUserContent([
-      createPartFromUri(myfile.uri, myfile.mimeType),
+    contents: [
+      {
+        inlineData: {
+          mimeType: "image/webp", // ya "image/png" based on image type
+          data: base64ImageData,
+        },
+      },
+      { text: 
       `You are an AI civic issue analyzer. 
 Look at the given image and return the analysis in JSON format only. 
 Do not add any extra text or explanation outside JSON. 
@@ -177,12 +186,15 @@ The JSON format should be:
                                      ]
 }
 
-} `
-    ]),
+} `},
+    ],
   });
 
-  console.log("📝 Gemini Response:", response.candidates[0].content.parts[0].text);
-  let d = response.candidates[0].content.parts[0].text
+  // Extract text safely
+  console.log(
+    result.candidates?.[0]?.content?.parts?.[0]?.text || "⚠️ No text response"
+  );
+    let d =   result.candidates?.[0]?.content?.parts?.[0]?.text
   let f = JSON.parse(d.replace("json","").replaceAll("```",""))
   console.log(f)
   return f
@@ -190,7 +202,33 @@ The JSON format should be:
 
 
 
-// Initialize Gemini AI
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 export async function compareCleaning(path1,path2) {

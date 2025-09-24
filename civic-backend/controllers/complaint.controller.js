@@ -18,10 +18,11 @@ export const createcomplaint = async(req,res) => {
    return await file.path; 
 }))
 console.log(image)
-const data = await main(image[0]);
+
 const imageurl =  await Promise.all(image.map(async res2 =>{
     return await uploadoncloudinary(res2);
 }))
+const data = await main(imageurl[0]);
 console.log(imageurl)
 const city = await reverseGeocode(lat,lon);
 console.log(city[1],data.department)
@@ -42,7 +43,7 @@ const complaint = await Complaint.create({
     problem_type:data.problem_type,
     skills:data.skills,
     severity_level:data.severity_level,
-    officer:officer._id
+    officer:officer?._id
 
 
 
@@ -53,7 +54,7 @@ console.log(complaint);
     if(!complaint){
         res.status(400).json({message:"error"});
     }
-sendmessagetosocket(officer.socketId,{
+sendmessagetosocket(officer?.socketId,{
     event:'complaint-come',
             data:complaint
 });
