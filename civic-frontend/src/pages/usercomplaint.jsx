@@ -353,7 +353,7 @@ export const UserComplaintpage = () => {
                     animate="visible"
                     exit="hidden"
                     transition={{ delay: index * 0.1 }}
-                    className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 group"
+                    className="bg-white relative   rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 group"
                   >
                     {/* Status Ribbon */}
                     <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold text-white z-10 shadow-lg bg-gradient-to-r ${statusInfo.bg}`}>

@@ -318,7 +318,7 @@ export const Complaintpage = () => {
             const statusClass = complaint.status.toLowerCase();
             
             return (
-              <div key={complaint._id} className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 group">
+              <div key={complaint._id} className="bg-white relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 group">
                 {/* Status Ribbon */}
                 <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold text-white z-10 shadow-lg ${
                   statusClass === 'pending' ? 'bg-gradient-to-r from-yellow-500 to-orange-500' :
