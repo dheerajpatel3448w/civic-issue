@@ -6,7 +6,9 @@ export const Applayout = () => {
 
     return(
         <>
+        <div className="pb-[80px]">
         <Navbar/>
+        </div>
         <Outlet/>
         <Footer/>
         </>

@@ -10,7 +10,7 @@ import workerModel from "../models/worker.model.js";
 import { senttomail } from "../service/mail.service.js";
 export const createcomplaint = async(req,res) => {
     const user = req.user._id
-    const {name,description,lon,lat,address,phone} = req.body;
+    const {name,lon,lat,address,phone} = req.body;
     console.log(name,user)
 
 

@@ -17,15 +17,11 @@ import WorkerTaskPage from './pages/workerpage'
 import { Applayout } from './pages/Applayout'
 import HomePage from './pages/Home'
 import { UserComplaintpage } from './pages/usercomplaint'
+import UpcomingFeatures from './pages/upcoming'
+import AboutPage from './pages/about'
 function App() {
  const router = createBrowserRouter([
-  {
-    path:"/register",
-    element:<Register/>
-  },{
-    path:"/login",
-    element:<Login/>
-  },
+ 
   {
     path:"/",
     element:<Applayout/>,
@@ -49,16 +45,30 @@ function App() {
   },{
     path:'/usercomplaint',
     element:<Userprotectroute><UserComplaintpage/></Userprotectroute>
-  }
-    ]
-  }
- ,{
+  },{
+    path:'/upcoming',
+    element:<UpcomingFeatures/>
+  
+  },
+   {
+    path:"/register",
+    element:<Register/>
+  },{
+    path:"/login",
+    element:<Login/>
+  },{
     path:'/officer',
     element:<OfficerForm/>
   },{
     path:"/officerlogin",
     element:<OfficerLogin/>
   },{
+    path:"/about",
+    element:<AboutPage/>
+  }
+    ]
+  }
+ ,{
     path:"/worker/task",
     element:<WorkerTaskPage/>
   }
