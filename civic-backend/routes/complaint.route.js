@@ -7,13 +7,7 @@ import { verifyToken2 } from "../middlewares/officertoken.js";
 
 const router3 = Router();
 
-router3.route('/createcomplaint').post(verifyToken,upload.fields([
-        {
-            name: "media",
-            maxCount: 2
-    
-        },
- ]),createcomplaint)
+router3.route('/createcomplaint').post(verifyToken,upload.single("media"),createcomplaint)
  router3.route('/allcomplaint').get(allcomplaint);
  router3.route('/assignworker').post(verifyToken2,assignedWorker);
  router3.route('/usercomplaint').get(usercomplaint);

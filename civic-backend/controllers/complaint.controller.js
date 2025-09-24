@@ -14,15 +14,11 @@ export const createcomplaint = async(req,res) => {
     console.log(name,user)
 
 
-         const image = await Promise.all( req.files.media.map(async (file) => {
-   return await file.path; 
-}))
-console.log(image)
+         
 
-const imageurl =  await Promise.all(image.map(async res2 =>{
-    return await uploadoncloudinary(res2);
-}))
-const data = await main(imageurl[0]);
+const imageurl =   await uploadoncloudinary(req.file.buffer);
+
+const data = await main(imageurl);
 console.log(imageurl)
 const city = await reverseGeocode(lat,lon);
 console.log(city[1],data.department)
