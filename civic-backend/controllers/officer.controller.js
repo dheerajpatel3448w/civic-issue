@@ -64,8 +64,12 @@ export const createofficer = async (req, res) => {
 }
 export const officerlogin = async(req,res) => {
     try {
-        const { email, password } = req.body;
-        console.log(email)
+       let { email, password } = req.body;
+    console.log(email);
+    console.log(password);
+    email=email.trim()
+     password=password.trim()
+    console.log(password);
         if (!email || !password) {
             return res.status(400).json({ error: "All fields are required" });
         }

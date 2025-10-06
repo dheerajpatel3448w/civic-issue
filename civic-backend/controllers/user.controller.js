@@ -6,7 +6,7 @@ export const register = async (req,res) => {
     if (!name || !email || !phone||!password) {
         return res.status(400).json({ error: "All fields are required" });
     }
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email:email });
     if (existingUser) {
         return res.status(400).json({ error: "User already exists" });
     }
@@ -19,8 +19,12 @@ export const register = async (req,res) => {
 
 
 export const login = async (req,res) => {
-    const { email, password } = req.body;
-    
+    let { email, password } = req.body;
+    console.log(email);
+    console.log(password);
+    email=email.trim()
+     password=password.trim()
+    console.log(password);
     if (!email || !password) {
         return res.status(400).json({ error: "All fields are required" });
     }
@@ -28,6 +32,8 @@ export const login = async (req,res) => {
     if (!user) {
         return res.status(400).json({ error: "Invalid credentials" });
     }
+    
+   
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
         return res.status(400).json({ error: "Invalid credentials" });

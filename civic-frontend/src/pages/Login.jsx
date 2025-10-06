@@ -194,6 +194,27 @@ export default function Login() {
           </form>
         </div>
       </motion.div>
+          <div className="bg-white p-6 rounded-lg shadow-lg ml-8 border-gray-200">
+  <div className="text-sm text-gray-600 mb-4 text-center">
+    Demo Credentials
+  </div>
+  
+  <div className="space-y-3 font-mono text-sm">
+    <div className="flex items-center p-3 bg-gray-50 rounded-md border-l-4 border-blue-500">
+      <span className="text-gray-500 mr-2">email:</span>
+      <span className="text-gray-800 font-medium">tony12345@gmail.com</span>
+    </div>
+    
+    <div className="flex items-center p-3 bg-gray-50 rounded-md border-l-4 border-green-500">
+      <span className="text-gray-500 mr-2">password:</span>
+      <span className="text-gray-800 font-medium">Dheeraj@123</span>
+    </div>
+  </div>
+
+  <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md text-xs text-yellow-700 text-center">
+    This is a prototype - use the credentials above to test functionality
+  </div>
+</div>
     </div>
   );
 }
